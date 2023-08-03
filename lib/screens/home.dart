@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../checkLogin.dart';
+import '../login.dart';
 import '../model/todo.dart';
 import '../constants/colors.dart';
 import '../widgets/todo_item.dart';
@@ -65,7 +67,7 @@ class _HomeState extends State<Home> {
                   currentAccountPicture: CircleAvatar(
                     child: ClipOval(
                       child: Image.asset(
-                        'assets/img.png',
+                        'assets/images/avatar.jpeg',
                         fit: BoxFit.cover,
                         width: 90,
                         height: 90,
@@ -94,15 +96,6 @@ class _HomeState extends State<Home> {
               title: Text('History'),
               onTap: () => null,
             ),
-            // ListTile(
-            //   leading: Icon(Icons.share),
-            //   title: Text('Share'),
-            //   onTap: () => null,
-            // ),
-            // ListTile(
-            //   leading: Icon(Icons.notifications),
-            //   title: Text('Request'),
-            // ),
             Divider(),
             ListTile(
               leading: Icon(Icons.settings),
@@ -110,32 +103,76 @@ class _HomeState extends State<Home> {
               onTap: () => null,
             ),
             ListTile(
-              leading: Icon(Icons.contact_page),
-              title: Text('Policies'),
-              onTap: () => null,
-            ),
-            Divider(),
-            ListTile(
               title: Text('Exit'),
               leading: Icon(Icons.logout),
               onTap: () async {
                 _auth.signOut();
+                await SharedPreferencesHelper.setLoggedIn(false);
 
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (context) => Home()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => MyLogin()));
               },
             ),
           ],
         ),
       ),
       backgroundColor: tdBGColor,
-      appBar: _buildAppBar(),
+      // appBar: AppBar(
+      //   backgroundColor: tdBGColor,
+      //   elevation: 0,
+      //   title:
+      //       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      //     IconButton(
+      //       onPressed: () {
+      //         _scaffoldState.currentState?.openDrawer();
+      //       },
+      //       icon: Icon(
+      //         Icons.menu,
+      //         color: tdBlack,
+      //         size: 30,
+      //       ),
+      //     ),
+      //     Container(
+      //       height: 40,
+      //       width: 40,
+      //       child: ClipRRect(
+      //         borderRadius: BorderRadius.circular(20),
+      //         child: Image.asset('assets/images/avatar.jpeg'),
+      //       ),
+      //     ),
+      //   ]),
+      // ),
       body: Stack(
         children: [
           Container(
+            padding: EdgeInsets.only(top: 40, right: 20, left: 20),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      _scaffoldState.currentState?.openDrawer();
+                    },
+                    icon: Icon(
+                      Icons.menu,
+                      color: tdBlack,
+                      size: 30,
+                    ),
+                  ),
+                  Container(
+                    height: 40,
+                    width: 40,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset('assets/images/avatar.jpeg'),
+                    ),
+                  ),
+                ]),
+          ),
+          Container(
             padding: EdgeInsets.symmetric(
               horizontal: 20,
-              vertical: 15,
+              vertical: 55,
             ),
             child: Column(
               children: [
@@ -145,7 +182,7 @@ class _HomeState extends State<Home> {
                     children: [
                       Container(
                         margin: EdgeInsets.only(
-                          top: 50,
+                          // top: 20,
                           bottom: 20,
                         ),
                         child: Text(
@@ -272,6 +309,7 @@ class _HomeState extends State<Home> {
 
   Widget searchBox() {
     return Container(
+      margin: EdgeInsets.only(top: 50),
       padding: EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -298,30 +336,30 @@ class _HomeState extends State<Home> {
     );
   }
 
-  AppBar _buildAppBar() {
-    return AppBar(
-      backgroundColor: tdBGColor,
-      elevation: 0,
-      title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        IconButton(
-          onPressed: () {
-            _scaffoldState.currentState?.openDrawer();
-          },
-          icon: Icon(
-            Icons.menu,
-            color: tdBlack,
-            size: 30,
-          ),
-        ),
-        Container(
-          height: 40,
-          width: 40,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Image.asset('assets/images/avatar.jpeg'),
-          ),
-        ),
-      ]),
-    );
-  }
+  // AppBar _buildAppBar() {
+  //   return AppBar(
+  //     backgroundColor: tdBGColor,
+  //     elevation: 0,
+  //     title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+  //       IconButton(
+  //         onPressed: () {
+  //           _scaffoldState.currentState?.openDrawer();
+  //         },
+  //         icon: Icon(
+  //           Icons.menu,
+  //           color: tdBlack,
+  //           size: 30,
+  //         ),
+  //       ),
+  //       Container(
+  //         height: 40,
+  //         width: 40,
+  //         child: ClipRRect(
+  //           borderRadius: BorderRadius.circular(20),
+  //           child: Image.asset('assets/images/avatar.jpeg'),
+  //         ),
+  //       ),
+  //     ]),
+  //   );
+  // }
 }

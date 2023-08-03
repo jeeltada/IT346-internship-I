@@ -168,8 +168,11 @@ class _MyRegisterState extends State<MyRegister> {
                                         });
 
                                         if (newUser != null) {
-                                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MyLogin()));
-
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MyLogin()));
                                         }
                                       } catch (e) {
                                         print(e);
@@ -189,7 +192,10 @@ class _MyRegisterState extends State<MyRegister> {
                             children: [
                               TextButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, 'login');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MyLogin()));
                                 },
                                 child: Text(
                                   'Sign In',

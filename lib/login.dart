@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/register.dart';
 import 'package:flutter_todo_app/screens/home.dart';
+
+import 'checkLogin.dart';
 
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
@@ -102,6 +105,8 @@ class _MyLoginState extends State<MyLogin> {
                                                 password: password);
 
                                         if (user != null) {
+                                          await SharedPreferencesHelper
+                                              .setLoggedIn(true);
                                           Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
@@ -126,7 +131,10 @@ class _MyLoginState extends State<MyLogin> {
                             children: [
                               TextButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, 'register');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MyRegister()));
                                 },
                                 child: Text(
                                   'Sign Up',
